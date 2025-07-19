@@ -1,0 +1,56 @@
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.utils.setInterval;
+
+var chocolate:Sprite;
+var enemySprite:Sprite;
+var cat:Sprite;
+
+function onEvent(event:ControllerButtonEvent):void {
+    if (event.type == ControllerButtonEvent.Pressed) {
+        chocolate = createProjectileFromSprite();
+    }
+}
+
+function createProjectileFromSprite():Sprite {
+    var projectile:Sprite = new Sprite();
+    // Add your image drawing code here
+    projectile.y = cat.y - 100;
+    projectile.x = cat.x;
+    return projectile;
+}
+
+function onOverlap(sprite:Sprite, otherSprite:Sprite):void {
+    destroy(sprite, effects.bubbles, 500);
+    destroy(otherSprite, effects.fire, 100);
+    changeScoreBy(1);
+}
+
+function init():void {
+    game.splash("Liam Jackson Presents Cat Invaders Advisory This Game is A Work Of Fiction Do NOT IMITATE THE GAME");
+    scene.setBackgroundColor(5);
+    cat = createCat();
+    cat.x = 73;
+    cat.y = 90;
+    controller.moveSprite(cat, 100, 0);
+    cat.setStayInScreen(true);
+    info.setScore(0);
+    setInterval(spawnEnemy, 500);
+}
+
+function createCat():Sprite {
+    var cat:Sprite = new Sprite();
+    // Add your image drawing code here
+    return cat;
+}
+
+function spawnEnemy():void {
+    enemySprite = new Sprite();
+    // Add your image drawing code here
+    enemySprite.x = Math.random() * 150 + 10; // Random position
+    enemySprite.y = 0;
+    enemySprite.setVelocity(0, 50);
+}
+
+init();                LIAM J                                                                                                                                                                                                                                                                                                                          Game Made at codeninjas. 
